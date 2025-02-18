@@ -20,11 +20,16 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    
     public function About()
     {
         return Inertia::render('About/About');
     }
 
+    public function Contact()
+    {
+        return Inertia::render('Contact');
+    }
     /**
      * Store a newly created resource in storage.
      */

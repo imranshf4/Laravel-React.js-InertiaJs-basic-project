@@ -19,15 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
-});
 
-Route::get('/about', function () {
-    return Inertia::render('About/About');
-});
 
+Route::controller(PostController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/contact', 'Contact');
+    Route::get('/about', 'About');
+});
 require __DIR__.'/auth.php';
