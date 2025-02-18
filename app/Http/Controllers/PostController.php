@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -30,43 +32,48 @@ class PostController extends Controller
     {
         return Inertia::render('Contact');
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePostRequest $request)
+
+    // posts index
+    public function postIndex()
     {
-        //
+        return inertia('Posts/Index', [
+            'posts' => Post::all()
+        ]);
+    }
+    
+    //add post
+    public function addPost(){
+        return inertia('Posts/AddPost');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
+    //post data store
+    public function postStore(Request $request) {
+
+        Post::insert([
+            'body' => $request->body,
+            "created_at" => Carbon::now(),
+        ]);
+        return redirect()->route('posts.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
+    public function postEdit($id) {
+        $editPost = Post::findOrFail($id);
+        return inertia('Posts/EditPost', compact('editPost'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePostRequest $request, Post $post)
-    {
-        //
+    //update post
+    public function postUpdate(Request $request,$post_id) {
+
+        Post::findOrFail($post_id)->update([
+            'body' => $request->body,
+        ]);
+        return redirect()->route('posts.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
+    //delete post
+    public function postDestroy($post_id) {
+        Post::findOrFail($post_id)->delete();
+        return redirect()->back();
     }
+   
 }

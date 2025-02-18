@@ -7,6 +7,7 @@ const Header = () => {
       <Link href="/" className="text-sm font-medium px-6 py-3 bg-white rounded-md">Home</Link>
       <Link href="/about" className="text-sm font-medium px-6 py-3 bg-white rounded-md">About</Link>
       <Link href="/contact" className="text-sm font-medium px-6 py-3 bg-white rounded-md">Contact</Link>
+      <Link href="/posts" className="text-sm font-medium px-6 py-3 bg-white rounded-md">Posts</Link>
     </header>
   );
 };

@@ -25,5 +25,12 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/contact', 'Contact');
     Route::get('/about', 'About');
+    Route::get('/posts', 'postIndex')->name('posts.index');  // For listing posts
+    Route::get('/add/post', 'addPost');  // For listing posts
+    Route::post('/post/store', 'postStore'); // For creating a new post
+    Route::get('/post/edit/{id}', 'postEdit'); // For editing a post
+    Route::post('/update/post/{post_id}', 'postUpdate'); // For updating a post
+    Route::get('/delete/post/{post_id}', 'postDestroy'); // For deleting a post
 });
+
 require __DIR__.'/auth.php';
